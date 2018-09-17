@@ -244,11 +244,11 @@ public class ApiClient {
 	 * @param size
 	 * @return
 	 */
-	public HistoryTradeResponse<HistoryTradess> historyTrade(String symbol, String size) {
+	public HistoryTradeResponse<List<HistoryTradess>> historyTrade(String symbol, String size) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("symbol", symbol);
 		map.put("size", size);
-		HistoryTradeResponse<HistoryTradess> resp = get("/market/history/trade", map, new TypeReference<HistoryTradeResponse<HistoryTradess>>() {
+		HistoryTradeResponse<List<HistoryTradess>> resp = get("/market/history/trade", map, new TypeReference<HistoryTradeResponse<List<HistoryTradess>>>() {
 		});
 		return resp;
 	}
@@ -324,8 +324,8 @@ public class ApiClient {
 	 * @param accountId
 	 * @return
 	 */
-	public BalanceResponse<Balance<BalanceBean>> balance(String accountId) {
-		BalanceResponse<Balance<BalanceBean>> resp = get("/v1/account/accounts/" + accountId + "/balance", null, new TypeReference<BalanceResponse<Balance<BalanceBean>>>() {
+	public BalanceResponse<Balance<List<BalanceBean>>> balance(String accountId) {
+		BalanceResponse<Balance<List<BalanceBean>>> resp = get("/v1/account/accounts/" + accountId + "/balance", null, new TypeReference<BalanceResponse<Balance<List<BalanceBean>>>>() {
 		});
 		return resp;
 	}
@@ -450,6 +450,7 @@ public class ApiClient {
 			Request request = builder.build();
 			Response response = client.newCall(request).execute();
 			String s = response.body().string();
+			System.out.println("response body = " + s);
 			return JsonUtil.readValue(s, ref);
 		} catch (IOException e) {
 			throw new ApiException(e);

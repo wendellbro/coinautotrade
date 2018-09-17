@@ -15,17 +15,17 @@ public class HistoryTrade {
      * ts : 1502448920106
      */
 
-    private long id;
+    private String id;
     private double amount;
     private int price;
     private String direction;
     private long ts;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

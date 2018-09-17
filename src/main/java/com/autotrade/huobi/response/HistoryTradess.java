@@ -1,5 +1,7 @@
 package com.autotrade.huobi.response;
 
+import java.util.List;
+
 /**
  * @Author ISME
  * @Date 2018/1/14
@@ -15,7 +17,7 @@ public class HistoryTradess {
 
     private long id;
     private long ts;
-    private HistoryTrade data;
+    private List<HistoryTrade> data;
 
     public long getId() {
         return id;
@@ -33,11 +35,11 @@ public class HistoryTradess {
         this.ts = ts;
     }
 
-    public HistoryTrade getData() {
+    public List<HistoryTrade> getData() {
         return data;
     }
 
-    public void setData(HistoryTrade data) {
+    public void setData(List<HistoryTrade> data) {
         this.data = data;
     }
 }

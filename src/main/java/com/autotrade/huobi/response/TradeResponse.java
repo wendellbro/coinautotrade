@@ -8,7 +8,6 @@ package com.autotrade.huobi.response;
 
 public class TradeResponse {
 
-
     /**
      * status : ok
      * ch : market.btcusdt.trade.detail
@@ -21,7 +20,7 @@ public class TradeResponse {
     private long ts;
     public String errCode;
     public String errMsg;
-    private Trade<TradeBean> tick;
+    private Trade<?> tick;
 
     public String getStatus() {
         return status;
@@ -63,11 +62,12 @@ public class TradeResponse {
         this.errMsg = errMsg;
     }
 
-    public Trade<TradeBean> getTick() {
+    public Trade<?> getTick() {
         return tick;
     }
 
-    public void setTick(Trade<TradeBean> tick) {
+    public void setTick(Trade<?> tick) {
         this.tick = tick;
     }
+
 }
