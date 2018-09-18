@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.fastjson.JSON;
 import com.autotrade.huobi.api.ApiClient;
 import com.autotrade.huobi.api.ApiException;
 import com.autotrade.huobi.request.CreateOrderRequest;
@@ -26,89 +27,94 @@ import com.autotrade.huobi.response.SymbolsResponse;
 import com.autotrade.huobi.response.TimestampResponse;
 import com.autotrade.huobi.response.TradeResponse;
 import com.autotrade.huobi.tools.JsonUtil;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 
 public class Main {
 
 
-    static final String API_KEY = "--";
-    static final String API_SECRET = "--";
+    static final String API_KEY = "";
+    static final String API_SECRET = "";
   
     
     public static void main(String[] args) {
         try {
-//            apiSample();
+            apiSample();
         	
         	 // create ApiClient using your api key and api secret:
-            ApiClient client = new ApiClient(API_KEY, API_SECRET);
+//            ApiClient client = new ApiClient(API_KEY, API_SECRET);
+            
             // get symbol list:
-            print(client.getAccounts());
+//            print(client.getSymbols());
+
 
             
         } catch (ApiException e) {
             System.err.println("API Error! err-code: " + e.getErrCode() + ", err-msg: " + e.getMessage());
             e.printStackTrace();
+            
         }
     }
     
-    static void apiSample() {
+    @SuppressWarnings("rawtypes")
+	static void apiSample() {
         // create ApiClient using your api key and api secret:
         ApiClient client = new ApiClient(API_KEY, API_SECRET);
+        
         // get symbol list:
-        print(client.getSymbols());
+//        print(client.getSymbols());
 
         //获取 K 线
         //------------------------------------------------------ kline -------------------------------------------------------
-        KlineResponse kline = client.kline("btcusdt", "5min", "100");
-        print(kline);
+//        KlineResponse kline = client.kline("btcusdt", "5min", "100");
+//        print(kline);
 
         //------------------------------------------------------ merged -------------------------------------------------------
 
-        MergedResponse merged = client.merged("ethusdt");
-        print(merged);
+//        MergedResponse merged = client.merged("ethusdt");
+//        print(merged);
 
         //------------------------------------------------------ depth -------------------------------------------------------
 
-        DepthRequest depthRequest = new DepthRequest();
-        depthRequest.setSymbol("btcusdt");
-        depthRequest.setType("step0");
-        DepthResponse depth = client.depth(depthRequest);
-        print(depth);
+//        DepthRequest depthRequest = new DepthRequest();
+//        depthRequest.setSymbol("btcusdt");
+//        depthRequest.setType("step0");
+//        DepthResponse depth = client.depth(depthRequest);
+//        print(depth);
 
         //------------------------------------------------------ trade -------------------------------------------------------
-        TradeResponse trade = client.trade("ethusdt");
-        print(trade);
+//        TradeResponse trade = client.trade("ethusdt");
+//        print(trade);
 
         //------------------------------------------------------ historyTrade -------------------------------------------------------
-        HistoryTradeResponse historyTrade = client.historyTrade("ethusdt", "20");
-        print(historyTrade);
+//        HistoryTradeResponse historyTrade = client.historyTrade("ethusdt", "20");
+//        print(historyTrade);
 
         //------------------------------------------------------ historyTrade -------------------------------------------------------
-        DetailResponse detailTrade = client.detail("ethusdt");
-        print(detailTrade);
+//        DetailResponse detailTrade = client.detail("ethusdt");
+//        print(detailTrade);
 
         //------------------------------------------------------ symbols -------------------------------------------------------
-        SymbolsResponse symbols = client.symbols("btcusdt");
-        print(symbols);
+//        SymbolsResponse symbols = client.symbols("btcusdt");
+//        print(symbols);
 
         //------------------------------------------------------ Currencys -------------------------------------------------------
-        CurrencysResponse currencys = client.currencys("btcusdt");
-        print(currencys);
+//        CurrencysResponse currencys = client.currencys("btcusdt");
+//        print(currencys);
 
         //------------------------------------------------------ Currencys -------------------------------------------------------
-        TimestampResponse timestamp = client.timestamp();
-        print(timestamp);
+//        TimestampResponse timestamp = client.timestamp();
+//        print(timestamp);
 
         //------------------------------------------------------ accounts -------------------------------------------------------
-        AccountsResponse accounts = client.accounts();
+        AccountsResponse<List<Accounts>> accounts = client.accounts();
         print(accounts);
 
         //------------------------------------------------------ balance -------------------------------------------------------
-        List<Accounts> list = (List<Accounts>) accounts.getData();
-        BalanceResponse balance = client.balance(String.valueOf(list.get(0).getId()));
-        BalanceResponse balance2 = client.balance(String.valueOf(list.get(1).getId()));
-
-        print(balance); //spot
-        print(balance2);//otc
+        List<Accounts> list = accounts.getData();
+        for (Accounts account : list) {
+        	BalanceResponse balance = client.balance(String.valueOf(account.getId()));
+        	print(balance); //spot, if more one. it's otc
+		}
 
         Long orderId = 123L;
         if (!list.isEmpty()) {
@@ -142,8 +148,8 @@ public class Main {
         //------------------------------------------------------ submitcancel 批量取消订单-------------------------------------------------------
 //    String[] orderList = {"727554767","727554766",""};
 //    String[] orderList = {String.valueOf(orderId)};
-        List orderList = new ArrayList();
-        orderList.add(orderId);
+        List<String> orderList = new ArrayList<String>();
+        orderList.add(String.valueOf(orderId));
         BatchcancelResponse submitcancels = client.submitcancels(orderList);
         print(submitcancels);
 

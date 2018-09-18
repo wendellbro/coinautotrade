@@ -382,6 +382,13 @@ public class ApiClient {
 		return resp;
 	}
 
+	/**
+	 * GET /v1/order/orders
+	 * 用户订单信
+	 * 查询用户当前委托、或历史委托订单 (up to 100)
+	 * @param req
+	 * @return
+	 */
 	public IntrustDetailResponse<List<IntrustDetail>> intrustOrdersDetail(IntrustOrdersDetailRequest req) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("symbol", req.symbol);
