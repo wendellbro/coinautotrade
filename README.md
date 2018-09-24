@@ -11,9 +11,9 @@ in our repository in the `COPYING` file.
 We're using docker to uniform the build environment. 
 There're two steps to build the project.
  
-# Docker build environment
+## Docker build environment
 
-## Windows
+#### Windows
 - install docker
 ```
 download url ：https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe
@@ -22,7 +22,7 @@ download url ：https://download.docker.com/win/stable/Docker%20for%20Windows%20
 ```
 bin/start-docker.bat
 ```
-## Mac OS X
+#### Mac OS X
 - install docker
 ```
 brew install docker docker-compose docker-machine xhyve docker-machine-driver-xhyve
@@ -56,7 +56,7 @@ docker-machine ls
 ```
 bin/start-docker.sh
 ```
-## Linux
+#### Linux
 - install docker
 ```
 sudo apt install docker.io
@@ -69,13 +69,13 @@ see details https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-dock
 ```
 sudo groupadd docker
 sudo usermod -a -G docker wallchain
-gnome-session-quit
+logout
 ```
 - start docker container
 ```
 bin/start-docker.sh
 ```
-*** Build dht
+# Build dht
 When it's in the docker, and the root path of the Wallchain is "SOME_PATH". 
 Run:
 ```
@@ -100,7 +100,7 @@ make AllCommon
 make AllRpc
 make AllRouting
 ```
-# Wallchain code style:
+# Wallchain code style
 1. Wallchain code style is obeyed [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html).
 2. About code comment, there is a template at `dht/docs/code-comment-template.h`.
 3. IMPORTANT: 
