@@ -61,9 +61,9 @@ bin/start-docker.sh
 ```
 sudo apt install docker.io
 ```
-or
+&nbsp;&nbsp;&nbsp;&nbsp;or
 ```
-see details https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1
+see specific version: https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1
 ```
 - solve the trouble that docker needs root privileges
 ```
